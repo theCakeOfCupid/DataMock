@@ -14,10 +14,15 @@ allprojects {
 
 debugImplementation 'com.yizunda:datamock:1.0.0'
 ```
+
 ## 便捷使用
-![入口](\screenshots\1.png)
-点击齿轮图标进入
-![示例](\screenshots\2.png)
+
+![入口](screenshots/1.png)  
+
+点击齿轮图标进入  
+
+![示例](/screenshots/2.png)  
+
 打开经纬度开关，输入经纬度即可，经纬度以,隔开。
 ## 代码中使用
 ### 模拟经纬度
