@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.james.datamock">
+
+    <application>
+        <activity
+            android:name=".ui.DataMockSettingsActivity"
+            android:icon="@drawable/ic_setting"
+            android:label="DataMock"
+            android:taskAffinity="com.james.datamock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.james.datamock.DataMockInitializer"
+                android:value="androidx.startup" />
+        </provider>
+    </application>
+
+</manifest>

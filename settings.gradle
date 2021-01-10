@@ -1,0 +1,3 @@
+include ':system-data-mock'
+include ':app'
+rootProject.name = "DataMock"
