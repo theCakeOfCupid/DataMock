@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.panpf.bintray-publish'
 
 android {
     compileSdkVersion 29
@@ -24,6 +25,15 @@ android {
     }
 }
 
+publish {
+    userOrg = 'thecakeofcupid'
+    groupId = 'com.yizunda'
+    artifactId = 'datamock'
+    repoName = 'DataMock'
+    publishVersion = '1.0.0'
+    desc = 'a library of system data hooker'
+    website = 'https://github.com/theCakeOfCupid/DataMock'
+}
 
 
 dependencies {
