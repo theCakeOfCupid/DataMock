@@ -40,5 +40,5 @@ debugImplementation 'com.yizunda:datamock:1.0.0'
 ```
         DataMock.enableMockCellInfo(true)
         //传入需要模拟的基站信号列表
-        DataMock.mockCellInfoList = arrayListOf<CellInfo>()
+        DataMock.mockCellInfoList = mutableListOf<CellInfo>()
 ```
