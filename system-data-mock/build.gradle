@@ -30,7 +30,7 @@ publish {
     groupId = 'com.yizunda'
     artifactId = 'datamock'
     repoName = 'DataMock'
-    publishVersion = '1.0.0'
+    publishVersion = '1.0.1'
     desc = 'a library of system data hooker'
     website = 'https://github.com/theCakeOfCupid/DataMock'
 }

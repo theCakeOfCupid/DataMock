@@ -12,7 +12,7 @@ allprojects {
 }
 -------
 
-debugImplementation 'com.yizunda:datamock:1.0.0'
+debugImplementation 'com.yizunda:datamock:1.0.1'
 ```
 
 ## 便捷使用
