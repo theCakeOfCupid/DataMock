@@ -23,10 +23,10 @@ abstract class BaseBinderInvocationHandler(
 
     abstract fun getActuallyInvocationHandler(originIBinder: IBinder): BaseDataManagerInvocationHandler
 
-    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any {
+    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any? {
         if (null == getIInterface()) {
             Log.d(DataMock.TAG, "get IIterface failed")
-            return method?.invoke(originIBinder, args)!!
+            return method?.invoke(originIBinder, args)
         }
         Log.d(DataMock.TAG, "hook binder success")
         //这里只能hook queryLocalInterface,不能hook asInterface,因为在SystemServiceRegistry里面是通过ILocationManager.Stub.asInterface(b)获取IInterface的
@@ -38,6 +38,6 @@ abstract class BaseBinderInvocationHandler(
                 getActuallyInvocationHandler(originIBinder)
             )
         }
-        return method?.invoke(originIBinder, *args ?: arrayOf()) ?: Unit
+        return method?.invoke(originIBinder, *args ?: arrayOf())
     }
 }

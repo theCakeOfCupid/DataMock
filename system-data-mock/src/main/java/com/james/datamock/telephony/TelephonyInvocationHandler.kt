@@ -24,7 +24,7 @@ class TelephonyInvocationHandler(originIBinder: IBinder) :
        return ReflectionHelper.getClassByName(STUB_PATH)
     }
 
-    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any {
+    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any? {
         if (!DataMock.isEnableMockCellInfo()){
             return super.invoke(proxy, method, args)
         }

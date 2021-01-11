@@ -26,7 +26,7 @@ abstract class BaseDataManagerInvocationHandler(private var origin: IBinder) : I
 
     abstract fun getStubClass(): Class<*>?
 
-    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any {
-        return method?.invoke(iInterface, *args ?: arrayOf()) ?: Unit
+    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any? {
+        return method?.invoke(iInterface, *args ?: arrayOf())
     }
 }

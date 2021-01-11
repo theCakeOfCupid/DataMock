@@ -27,7 +27,7 @@ class LocationManagerInvocationHandler(origin: IBinder) : BaseDataManagerInvocat
         return ReflectionHelper.getClassByName(STUB_PATH)
     }
 
-    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any {
+    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any? {
         Log.d(DataMock.TAG, "hook locationManager success")
         //不做处理
         if (!DataMock.isEnableMockCoordinate()) {

@@ -13,9 +13,9 @@ import java.lang.reflect.Method
  */
 class LocationListenerInvocationHandler(val originLocationListener: LocationListener?) :
     InvocationHandler {
-    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any {
+    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any? {
         if (!DataMock.isEnableMockCoordinate()){
-            return method?.invoke(originLocationListener, *args ?: arrayOf()) ?: Unit
+            return method?.invoke(originLocationListener, *args ?: arrayOf())
         }
         if (method?.name == "onLocationChanged") {
             val mockData = Location(LocationManager.NETWORK_PROVIDER)
@@ -25,6 +25,6 @@ class LocationListenerInvocationHandler(val originLocationListener: LocationList
             originLocationListener?.onLocationChanged(mockData)
             return Unit
         }
-        return method?.invoke(originLocationListener, *args ?: arrayOf()) ?: Unit
+        return method?.invoke(originLocationListener, *args ?: arrayOf())
     }
 }
