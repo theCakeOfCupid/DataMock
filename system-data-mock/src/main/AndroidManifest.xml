@@ -8,7 +8,8 @@
             android:name=".ui.DataMockSettingsActivity"
             android:icon="@drawable/ic_setting"
             android:label="DataMock"
-            android:taskAffinity="com.james.datamock">
+            android:launchMode="singleInstance"
+            android:taskAffinity="com.james.datamock.setting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -66,66 +66,72 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
         Log.d(DataMock.TAG, "lon:${lastKnownLocation?.longitude}")
         Log.d(DataMock.TAG, "lat:${lastKnownLocation?.latitude}")
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,1222,1222f,object :LocationListener{
-            override fun onLocationChanged(location: Location?) {
-                Log.d(DataMock.TAG, "onLocationChanged lon:${location?.longitude}")
-                Log.d(DataMock.TAG, "onLocationChanged lat:${location?.latitude}")
-            }
+        locationManager.requestLocationUpdates(
+            LocationManager.NETWORK_PROVIDER, 0L, 0f,
+            object : LocationListener {
+                override fun onLocationChanged(location: Location?) {
+                    Log.d(DataMock.TAG, "onLocationChanged lon:${location?.longitude}")
+                    Log.d(DataMock.TAG, "onLocationChanged lat:${location?.latitude}")
+                }
 
-            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-            }
+                override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+                }
 
-            override fun onProviderEnabled(provider: String?) {
-            }
+                override fun onProviderEnabled(provider: String?) {
+                }
 
-            override fun onProviderDisabled(provider: String?) {
-            }
+                override fun onProviderDisabled(provider: String?) {
+                }
 
-        })
+            })
     }
 
-    private fun getWifiScanResult():ScanResult{
-        val scanResult =  ReflectionHelper.getClassByName("android.net.wifi.ScanResult")?.newInstance() as ScanResult
+    private fun getWifiScanResult(): ScanResult {
+        val scanResult = ReflectionHelper.getClassByName("android.net.wifi.ScanResult")
+            ?.newInstance() as ScanResult
         scanResult.SSID = "test_ssid"
         scanResult.level = -62
         scanResult.BSSID = "sdfjlsadfkjlsdf"
         return scanResult
     }
 
-    private fun getCellInfo():CellInfo{
-        val cellInfo =  ReflectionHelper.getClassByName("android.telephony.CellInfoLte")?.newInstance() as CellInfoLte
+    private fun getCellInfo(): CellInfo {
+        val cellInfo = ReflectionHelper.getClassByName("android.telephony.CellInfoLte")
+            ?.newInstance() as CellInfoLte
         return cellInfo
     }
 
-    private fun testWifi(){
+    private fun testWifi() {
         val temp = mutableListOf<ScanResult>()
-        for (i in 1..10){
+        for (i in 1..10) {
             temp.add(getWifiScanResult())
         }
         DataMock.mockScanResultList = temp
-        val wifiService = getApplicationContext().getSystemService(Context.WIFI_SERVICE) as WifiManager
-        val result=wifiService.scanResults
+        val wifiService =
+            getApplicationContext().getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val result = wifiService.scanResults
         result.forEach {
-            Log.d(DataMock.TAG,it.BSSID)
-            Log.d(DataMock.TAG,it.SSID)
-            Log.d(DataMock.TAG,it.level.toString())
+            Log.d(DataMock.TAG, it.BSSID)
+            Log.d(DataMock.TAG, it.SSID)
+            Log.d(DataMock.TAG, it.level.toString())
         }
     }
 
     @SuppressLint("MissingPermission")
-    private fun testCellInfo(){
+    private fun testCellInfo() {
         val temp = mutableListOf<CellInfo>()
-        for (i in 1..10){
-           temp.add(getCellInfo())
+        for (i in 1..10) {
+            temp.add(getCellInfo())
         }
         DataMock.mockCellInfoList = temp
-        val telephonyManager = getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        val telephonyManager =
+            getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         val result = telephonyManager.allCellInfo
         result.forEach {
-            Log.d(DataMock.TAG,"cellinfo---")
-          if (it is CellInfoLte){
-              Log.d(DataMock.TAG,it.cellSignalStrength.dbm.toString())
-          }
+            Log.d(DataMock.TAG, "cellinfo---")
+            if (it is CellInfoLte) {
+                Log.d(DataMock.TAG, it.cellSignalStrength.dbm.toString())
+            }
         }
     }
 
