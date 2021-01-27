@@ -27,6 +27,8 @@ object DataMock {
 
     private const val MOCKED_COORDINATE = "mocked_coordinate"
 
+    private const val IGNORE_MOCK_TIME = "ignore_mock_time"
+
     internal var mockLon = 0.0
 
     internal var mockLat = 0.0
@@ -50,6 +52,13 @@ object DataMock {
         } catch (e: Exception) {
             Log.e(TAG, "init failed", e)
         }
+    }
+
+    public fun getMockTime(): Long {
+        if (isIgnoreMockTime()) {
+            return 0
+        }
+        return System.currentTimeMillis()
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -154,6 +163,18 @@ object DataMock {
      * 是否允许模拟基站
      */
     fun isEnableMockCellInfo() = SpHelper.getBoolean(ENABLE_MOCK_CELL_INFO, false)
+
+    /**
+     * 忽略模拟时间
+     */
+    fun ignoreMockTime(ignore: Boolean) = SpHelper.setBoolean(IGNORE_MOCK_TIME, ignore)
+
+    /**
+     * 是否忽略模拟时间
+     */
+    fun isIgnoreMockTime(): Boolean {
+        return SpHelper.getBoolean(IGNORE_MOCK_TIME, false)
+    }
 
     /**
      * 模拟经纬度数据，以,分割; 例：113.123123,22.32323

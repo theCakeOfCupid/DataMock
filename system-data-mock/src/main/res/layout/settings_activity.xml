@@ -3,38 +3,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/tv_coordinate_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:gravity="center"
         android:text="模拟经纬度"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toTopOf="@+id/sw_coordinate"
         app:layout_constraintBottom_toBottomOf="@+id/sw_coordinate"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sw_coordinate" />
+
+    <TextView
+        android:id="@+id/tv_ignore_mock_time"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:gravity="center"
+        android:text="忽略模拟时间"
+        app:layout_constraintBottom_toBottomOf="@+id/sw_ignore_mock_time"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sw_ignore_mock_time" />
 
     <TextView
         android:id="@+id/tv_wifi_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:gravity="center"
         android:text="模拟wifi"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toTopOf="@+id/sw_wifi"
         app:layout_constraintBottom_toBottomOf="@+id/sw_wifi"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="@+id/sw_wifi" />
 
     <TextView
         android:id="@+id/tv_cell_info_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:gravity="center"
         android:text="模拟基站"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toTopOf="@+id/sw_cell_info"
         app:layout_constraintBottom_toBottomOf="@+id/sw_cell_info"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="@+id/sw_cell_info" />
+
     <Switch
         android:id="@+id/sw_coordinate"
         android:layout_width="wrap_content"
@@ -46,13 +59,23 @@
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Switch
-        android:id="@+id/sw_wifi"
+        android:id="@+id/sw_ignore_mock_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sw_coordinate"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <Switch
+        android:id="@+id/sw_wifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sw_ignore_mock_time"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Switch
@@ -64,25 +87,27 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sw_wifi"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
+
     <TextView
         android:id="@+id/tv_coordinate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="经纬度"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/sw_cell_info"
-        android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toBottomOf="@+id/sw_cell_info" />
+
     <EditText
         android:id="@+id/et_coordinate"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:hint="经纬度以,号隔开"
         android:padding="10dp"
         android:textSize="14sp"
-        app:layout_constraintLeft_toRightOf="@+id/tv_coordinate"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toTopOf="@+id/tv_coordinate"
         app:layout_constraintBottom_toBottomOf="@+id/tv_coordinate"
-        android:layout_width="200dp"
-        android:hint="经纬度以,号隔开"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintLeft_toRightOf="@+id/tv_coordinate"
+        app:layout_constraintTop_toTopOf="@+id/tv_coordinate" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,7 +34,7 @@ class LocationManagerInvocationHandler(origin: IBinder) : BaseDataManagerInvocat
             return super.invoke(proxy, method, args)
         }
         val mockData = Location(LocationManager.NETWORK_PROVIDER)
-        mockData.time = System.currentTimeMillis()
+        mockData.time = DataMock.getMockTime()
         mockData.longitude = DataMock.mockLon
         mockData.latitude = DataMock.mockLat
         //mock就走这里

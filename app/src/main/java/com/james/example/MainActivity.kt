@@ -64,12 +64,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         val lastKnownLocation =
             locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+        Log.d(DataMock.TAG, "onLocationChanged time:${lastKnownLocation?.time}")
         Log.d(DataMock.TAG, "lon:${lastKnownLocation?.longitude}")
         Log.d(DataMock.TAG, "lat:${lastKnownLocation?.latitude}")
         locationManager.requestLocationUpdates(
             LocationManager.NETWORK_PROVIDER, 0L, 0f,
             object : LocationListener {
                 override fun onLocationChanged(location: Location?) {
+                    Log.d(DataMock.TAG, "onLocationChanged time:${location?.time}")
                     Log.d(DataMock.TAG, "onLocationChanged lon:${location?.longitude}")
                     Log.d(DataMock.TAG, "onLocationChanged lat:${location?.latitude}")
                 }

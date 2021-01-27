@@ -23,6 +23,12 @@ class DataMockSettingsActivity : AppCompatActivity() {
         sw_coordinate.setOnCheckedChangeListener { buttonView, isChecked ->
             DataMock.enableMockCoordinate(isChecked)
         }
+
+        sw_ignore_mock_time.isChecked = DataMock.isIgnoreMockTime()
+        sw_ignore_mock_time.setOnCheckedChangeListener { buttonView, isChecked ->
+            DataMock.ignoreMockTime(isChecked)
+        }
+
         sw_wifi.isChecked = DataMock.isEnableMockWifi()
         sw_wifi.setOnCheckedChangeListener { buttonView, isChecked ->
             DataMock.enableMockWifi(isChecked)
