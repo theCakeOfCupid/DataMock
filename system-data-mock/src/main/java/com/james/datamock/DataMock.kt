@@ -2,16 +2,24 @@ package com.james.datamock
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.location.Geocoder
+import android.location.Location
 import android.net.wifi.ScanResult
 import android.os.IBinder
 import android.telephony.CellInfo
 import android.util.Log
+import com.amap.api.location.AMapLocation
+import com.baidu.location.Address
+import com.baidu.location.BDAbstractLocationListener
+import com.baidu.location.BDLocation
 import com.james.datamock.helper.Reflection
 import com.james.datamock.helper.ReflectionHelper
 import com.james.datamock.helper.SpHelper
 import com.james.datamock.location.LocationBinderInvocationHandler
 import com.james.datamock.telephony.TelephonyBinderInvocationHandler
+import com.james.datamock.utils.CoordinateConvertUtil
 import com.james.datamock.wifi.WifiBinderInvocationHandler
+import java.lang.ref.WeakReference
 import java.lang.reflect.Proxy
 
 /**
@@ -32,7 +40,7 @@ object DataMock {
     internal var mockLon = 0.0
 
     internal var mockLat = 0.0
-
+    
     var mockScanResultList: MutableList<ScanResult>? = null
 
     var mockCellInfoList: MutableList<CellInfo>? = null
@@ -43,7 +51,14 @@ object DataMock {
 
     private var serviceManagerClass: Class<*>? = null
 
+    private lateinit var mContext: WeakReference<Context>
+
+    private val mGeoCoder by lazy {
+        Geocoder(mContext.get())
+    }
+
     internal fun init(context: Context) {
+        mContext = WeakReference(context.applicationContext)
         try {
             Reflection.unseal(context)
             serviceManagerClass = ReflectionHelper.getClassByName(SYSTEM_MANAGER_PATH)
@@ -191,6 +206,69 @@ object DataMock {
                 mockLat = 0.0
                 Log.e(TAG, e.message, e)
             }
+        }
+    }
+
+    /**
+     * 是否需要处理高德定位
+     */
+    fun mockLocationIfNeeded(location: Any?) {
+        if (!isEnableMockCoordinate()) {
+            return
+        }
+        if (location is Location) {
+            location.longitude = mockLon
+            location.latitude = mockLat
+        }
+
+        if (location is AMapLocation) {
+            if (location.errorCode == AMapLocation.LOCATION_SUCCESS) {
+                location.longitude = mockLon
+                location.latitude = mockLat
+            }
+        }
+        if (location is BDLocation) {
+            location.longitude = mockLon
+            location.latitude = mockLat
+        }
+        geoCoderFromLocation(location)
+    }
+
+    /**
+     * 反地理编码
+     */
+    private fun geoCoderFromLocation(location: Any?) {
+        if (location is AMapLocation) {
+            val result = CoordinateConvertUtil.gcj02ToWgs84(location.longitude, location.latitude)
+            val fromLocation = mGeoCoder.getFromLocation(result[1], result[0], 1)
+            if (fromLocation.isNullOrEmpty()) {
+                return
+            }
+            location.province = fromLocation[0].adminArea
+            location.city = fromLocation[0].locality
+            location.address = fromLocation[0].featureName
+            location.district = fromLocation[0].subLocality
+        }
+        if (location is BDLocation) {
+            val result = CoordinateConvertUtil.bd09ToWgs84(location.longitude, location.latitude)
+            val fromLocation = mGeoCoder.getFromLocation(result[1], result[0], 1)
+            if (fromLocation.isNullOrEmpty()) {
+                return
+            }
+            val address = Address.Builder()
+                .province(fromLocation[0].adminArea)
+                .city(fromLocation[0].locality)
+                .country(fromLocation[0].countryName)
+                .street(fromLocation[0].subAdminArea)
+                .build()
+            location.setAddr(address)
+        }
+    }
+
+
+    class MyLocationListener : BDAbstractLocationListener() {
+        override fun onReceiveLocation(p0: BDLocation?) {
+            println("nothing")
         }
     }
 

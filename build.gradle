@@ -21,7 +21,7 @@ allprojects {
     }
 }
 
-tasks.getByPath(":system-data-mock:javadocRelease").enabled = false
+//tasks.getByPath(":system-data-mock:javadocRelease").enabled = false
 
 task clean(type: Delete) {
     delete rootProject.buildDir

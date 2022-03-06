@@ -56,7 +56,7 @@ class LocationManagerInvocationHandler(origin: IBinder) : BaseDataManagerInvocat
      */
     private fun getListenerTransportAndReplaceLocationListener(args: Array<out Any>?) {
         args?.forEach {
-            if (it?.javaClass?.simpleName == "ListenerTransport") {
+            if (it?.javaClass?.simpleName == "ListenerTransport" || it?.javaClass?.simpleName == "LocationListenerTransport") {
                 val locationListenerField =
                     ReflectionHelper.getDeclaredField(it.javaClass, "mListener")
                 locationListenerField.isAccessible = true

@@ -24,6 +24,11 @@ import com.permissionx.guolindev.PermissionX
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    companion object {
+        const val TAG = "DataMock"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -64,16 +69,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         val lastKnownLocation =
             locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-        Log.d(DataMock.TAG, "onLocationChanged time:${lastKnownLocation?.time}")
-        Log.d(DataMock.TAG, "lon:${lastKnownLocation?.longitude}")
-        Log.d(DataMock.TAG, "lat:${lastKnownLocation?.latitude}")
+        Log.d(TAG, "onLocationChanged time:${lastKnownLocation?.time}")
+        Log.d(TAG, "lon:${lastKnownLocation?.longitude}")
+        Log.d(TAG, "lat:${lastKnownLocation?.latitude}")
         locationManager.requestLocationUpdates(
             LocationManager.NETWORK_PROVIDER, 0L, 0f,
             object : LocationListener {
                 override fun onLocationChanged(location: Location?) {
-                    Log.d(DataMock.TAG, "onLocationChanged time:${location?.time}")
-                    Log.d(DataMock.TAG, "onLocationChanged lon:${location?.longitude}")
-                    Log.d(DataMock.TAG, "onLocationChanged lat:${location?.latitude}")
+                    Log.d(TAG, "onLocationChanged time:${location?.time}")
+                    Log.d(TAG, "onLocationChanged lon:${location?.longitude}")
+                    Log.d(TAG, "onLocationChanged lat:${location?.latitude}")
                 }
 
                 override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
@@ -113,9 +118,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             getApplicationContext().getSystemService(Context.WIFI_SERVICE) as WifiManager
         val result = wifiService.scanResults
         result.forEach {
-            Log.d(DataMock.TAG, it.BSSID)
-            Log.d(DataMock.TAG, it.SSID)
-            Log.d(DataMock.TAG, it.level.toString())
+            Log.d(TAG, it.BSSID)
+            Log.d(TAG, it.SSID)
+            Log.d(TAG, it.level.toString())
         }
     }
 
@@ -130,9 +135,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         val result = telephonyManager.allCellInfo
         result.forEach {
-            Log.d(DataMock.TAG, "cellinfo---")
+            Log.d(TAG, "cellinfo---")
             if (it is CellInfoLte) {
-                Log.d(DataMock.TAG, it.cellSignalStrength.dbm.toString())
+                Log.d(TAG, it.cellSignalStrength.dbm.toString())
             }
         }
     }
@@ -148,4 +153,5 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             testCellInfo()
         }
     }
+
 }

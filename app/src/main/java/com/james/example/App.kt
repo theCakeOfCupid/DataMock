@@ -1,8 +1,7 @@
 package com.james.example
 
 import android.app.Application
-import android.content.Context
-import com.james.datamock.DataMock
+import kotlin.properties.Delegates
 
 /**
  * @author james
